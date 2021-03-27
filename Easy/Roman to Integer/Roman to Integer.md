@@ -1,4 +1,6 @@
-/* 
+[Roman to Integer - LeetCode](https://leetcode.com/problems/roman-to-integer/)
+
+### 문제 설명
 
 Roman numerals are represented by seven different symbols: `I`, `V`, `X`, `L`, `C`, `D` and `M`.
 
@@ -70,32 +72,16 @@ Explanation: M = 1000, CM = 900, XC = 90 and IV = 4.
 - `1 <= s.length <= 15`
 - `s` contains only the characters `('I', 'V', 'X', 'L', 'C', 'D', 'M')`.
 - It is **guaranteed** that `s` is a valid roman numeral in the range `[1, 3999]`.
-*/
 
-// 문제 풀이
-var romanToInt = function (s) {
-  const romanArr = s.split(""); // 로마 문자열 -> 문자로 반환
-  let total = 0; // 반환값
-  const romanData = {
-    I: 1,
-    V: 5,
-    X: 10,
-    L: 50,
-    C: 100,
-    D: 500,
-    M: 1000,
-  };
+## 풀이
 
-  for (let i = 0; i < romanArr.length; i++) {
-    const cur = romanData[romanArr[i]]; // 앞 문자
-    const next = romanData[romanArr[i + 1]]; // 뒤 문자
-    if (cur < next) {
-      total += next - cur;
-      i++;
-    } else {
-      total += cur;
-    }
-  }
-
-  return total;
-};
+- `('I', 'V', 'X', 'L', 'C', 'D', 'M')`라는 로마 문자가 주어졌다.
+- 각각의 로마 문자에는 숫자가 존재한다.
+- 우선 먼저 로마 문자들이 합쳐진 로마 문자열을 .split() 함수로 문자로 나눈다.
+- 나중에 알고 봤더니 그냥 문자열로도 반복문을 돌릴 수 있었다..
+- 이제 for문으로 배열의 처음부터 끝까지 loop을 도는데, 신기한건 `('IV', 'IX', 'CM', 'XC')` 와 같은 문자의 경우 `"III"` = 3 과 같이 우리가 예상하는 수가 반환되는 것이 아니라 `뒤의 문자의 수 - 앞의 문자의 수가 된 값`이 반환된다.
+- 즉 이말은 로마 문자들은 각각의 해당하는 숫자들을 가지고 있는데, 그 문자들이 합쳐졌을 때 앞의 문자 < 뒤의 문자일 경우 `뒤의 문자의 해당하는 수 - 앞의 문자의 해당하는 수를 빼야하는 규칙`이 생긴다.
+- 그래서 조건문을 통해 앞에 있는 문자의 수와 뒤에 있는 문자의 수를 서로 비교해서 뒤에 문자가 크면 뒤에 문자의 수 - 앞의 문자를 해준다.
+- 대신 주의할 점은 두 문자를 비교 했기 때문에 두 문자의 다음 순서로 가도록 설정해야 한다.
+- 즉 i++를 하면 된다.
+- 그럼 바로 다음 순서로 가서
